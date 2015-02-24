@@ -23,5 +23,12 @@ app.controller('meetupsController', ['$scope', '$resource',
 			$scope.meetupName = '';
 			*/
 		}
+
+		$scope.deleteMeetup = function() {
+			item = $scope.meetups[0];
+			console.log("deleting meetup: " + item["name"]);
+			Meetups.delete(item);
+		}
+		
 	}
 ]);

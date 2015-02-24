@@ -12,3 +12,7 @@ module.exports.list = function (req, res) {
 		res.json(results);
 	});
 }
+
+module.exports.remove = function(req, res) {
+	console.log("GOING TO REMOVE!!!");
+}
