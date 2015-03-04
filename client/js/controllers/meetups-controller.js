@@ -8,10 +8,18 @@ app.controller('meetupsController', ['$scope', '$resource',
 			$scope.meetups = results;
 		});
 
+		// function loadata(){
+		// 	Meetup.get(function(results){
+		// 		console.log(results);
+		// 			$scope.meetups = results;
+		// 	});
+		// };
+
 		$scope.createMeetup = function() {
 			var meetup = new Meetup();
 			meetup.name = $scope.meetupName;
 			meetup.$save(function (result) {
+				console.log(result);
 				$scope.meetups.push(result);
 				$scope.meetupName = '';
 			});
@@ -27,8 +35,35 @@ app.controller('meetupsController', ['$scope', '$resource',
 		$scope.deleteMeetup = function() {
 			item = $scope.meetups[0];
 			console.log("deleting meetup: " + item["name"]);
-			Meetups.delete(item);
+			Meetup.delete(item, function () {
+				console.log("in callback!");
+				$scope.meetups.shift();
+			});
+			//$scope.meetups.shift();
+			/*
+			Meetup.delete(item, function () {
+					console.log("In callback!!");
+					console.log(returnValue);
+					console.log(responseHeaders);
+					$scope.meetups.splice(item);
+				});
+			*/
+			/*Meetup.delete(item, 
+				function (returnValue, responseHeaders) {
+					console.log("In callback!!");
+					console.log(returnValue);
+					console.log(responseHeaders);
+					$scope.meetups.splice(item);
+				},
+				function (httpResponse){
+					// error handling here
+					console.log("Need to handle errors");
+				});
+			*/
+			//$scope.meetups.splice(item);
+			//item.delete();
 		}
+		// loadata();
 		
 	}
 ]);

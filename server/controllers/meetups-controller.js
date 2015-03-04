@@ -15,4 +15,13 @@ module.exports.list = function (req, res) {
 
 module.exports.remove = function(req, res) {
 	console.log("GOING TO REMOVE!!!");
+	console.log(req.query);
+	
+	item = req.query;
+	Meetup.remove(item, function (err, results) {
+		console.log("done");
+		console.log(err);
+		console.log(results);
+		res.json(results);
+	});
 }
